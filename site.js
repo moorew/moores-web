@@ -99,8 +99,8 @@
   .foot a{color:color-mix(in oklab,var(--paper) 82%,transparent);font-size:15px;display:block;padding:5px 0;}
   .foot a:hover{color:var(--paper);}
   .foot .addr{color:color-mix(in oklab,var(--paper) 70%,transparent);font-size:15px;line-height:1.8;max-width:30ch;margin-top:22px;}
-  .foot-tel{display:inline-flex;align-items:center;gap:12px;font-family:var(--display);font-size:clamp(24px,2.6vw,30px);color:var(--paper) !important;padding:2px 0 !important;margin-top:4px;}
-  .foot-tel svg{color:var(--brass);width:19px;height:19px;}
+  .foot-tel{display:inline-flex;align-items:center;gap:12px;font-family:var(--display);font-size:clamp(24px,2.6vw,30px);line-height:1;color:var(--paper) !important;padding:2px 0 !important;margin-top:4px;}
+  .foot-tel svg{color:var(--brass);width:19px;height:19px;flex:none;position:relative;top:1px;}
   .foot-tel:hover{color:color-mix(in oklab,var(--brass) 85%,white) !important;}
   .foot .tel-note{font-size:13px;color:color-mix(in oklab,var(--paper) 55%,transparent);margin-top:6px;line-height:1.6;}
   .foot-base{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;padding-top:28px;font-size:12.5px;color:color-mix(in oklab,var(--paper) 55%,transparent);letter-spacing:.04em;}

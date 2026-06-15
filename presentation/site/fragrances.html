@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fragrance Library — 100+ Scents | Moores Home &amp; Garden</title>
+<meta name="description" content="Browse the Moores fragrance library — over a hundred blends made in-house, from Edition and Florals to Tea and bespoke collections. Find a scent for your range.">
+<link rel="canonical" href="https://mooreshomeandgarden.com/fragrances.html">
+<meta name="theme-color" content="#2A211A">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Moores Home &amp; Garden">
+<meta property="og:title" content="The Fragrance Library — 100+ Scents">
+<meta property="og:description" content="Over a hundred blends made in-house, from Edition and Florals to Tea and bespoke collections. Find your scent.">
+<meta property="og:url" content="https://mooreshomeandgarden.com/fragrances.html">
+<meta property="og:image" content="https://mooreshomeandgarden.com/photos/moores-hero-collection.jpg">
+<meta property="og:image:alt" content="The Moores fragrance library">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="brand.css">
+<style>
+  .page-hero { padding-top: clamp(48px,7vh,90px); }
+  .page-hero h1 { font-size: clamp(42px,5.8vw,80px); }
+  .page-hero h1 em { color: var(--sienna); }
+
+  /* ---- tone finder ---- */
+  .tone-finder { margin-top: clamp(30px,5vh,52px); background: var(--shell); border: 1px solid var(--line); border-radius: 6px; padding: clamp(24px,3vw,40px); }
+  .tone-finder .tf-lead { font-family: var(--display); font-size: clamp(21px,2.4vw,27px); margin: 8px 0 18px; }
+  .tf-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .tf-pill { font-family: var(--sans); font-size: 14px; letter-spacing: .06em; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 100px; padding: 12px 22px; min-height: 44px; cursor: pointer; transition: all .25s var(--ease); }
+  .tf-pill:hover { border-color: var(--sienna); color: var(--sienna); }
+  .tf-pill.on { background: var(--sienna); border-color: var(--sienna); color: var(--shell); }
+  .tf-status { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 18px; font-family: var(--sans); font-size: 14px; color: var(--ink-soft); }
+  .tf-status strong { color: var(--ink); font-weight: 500; }
+  #tfClear { display: none; background: none; border: 0; cursor: pointer; font-family: var(--sans); font-size: 13px; letter-spacing: .08em; color: var(--sienna); border-bottom: 1px solid var(--sienna); padding: 0 0 1px; }
+  body.filtered #tfClear { display: inline-block; }
+
+  .coll-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(22px,3.5vh,36px); }
+  .coll-nav a { font-family: var(--sans); font-size: 12.5px; letter-spacing: .08em; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 100px; padding: 8px 16px; background: var(--shell); transition: all .3s var(--ease); white-space: nowrap; }
+  .coll-nav a:hover { border-color: var(--sienna); color: var(--sienna); }
+  .coll-nav a.dim { opacity: .35; pointer-events: none; }
+
+  .pad-s { padding-block: clamp(48px,7vh,84px); }
+  .coll.alt { background: var(--paper-deep); }
+  .coll.empty .scent-grid { display: none; }
+  .coll-empty { display: none; font-family: var(--display); font-style: italic; font-size: 16px; color: var(--ink-soft); margin: 0; }
+  .coll.empty .coll-empty { display: block; }
+  .coll-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 28px; flex-wrap: wrap; border-bottom: 2px solid var(--ink); padding-bottom: 14px; margin-bottom: clamp(24px,4vh,40px); }
+  .coll-head .eyebrow { font-size: 13px; white-space: nowrap; }
+  .c-num { font-family: var(--display); font-size: 17px; color: var(--sienna); letter-spacing: .04em; margin-right: 10px; }
+  .c-blurb { font-family: var(--display); font-style: italic; font-size: 17px; color: var(--ink-soft); margin: 0; max-width: 46ch; }
+  @media (min-width: 761px) { .c-blurb { text-align: right; } }
+
+  .scent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(32px,4vw,64px); }
+  .scent { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .scent.hide { display: none; }
+  .scent h3 { font-family: var(--display); font-weight: 500; font-size: 23px; line-height: 1.18; margin: 0 0 6px; }
+  .s-tones { font-family: var(--sans); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--sienna); margin: 0 0 8px; }
+  .scent p { font-size: 14.5px; line-height: 1.65; color: var(--ink-soft); margin: 0; max-width: 56ch; }
+  .s-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .s-tags span { font-family: var(--sans); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--sage); border: 1px solid color-mix(in oklab, var(--sage) 40%, transparent); border-radius: 100px; padding: 3px 10px; }
+  @media (max-width: 760px) { .scent-grid { grid-template-columns: 1fr; } }
+
+  /* ---- mobile collapse ---- */
+  .s-chev { display: none; }
+  @media (max-width: 760px) {
+    .scent h3 { display: flex; align-items: center; justify-content: space-between; gap: 14px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .scent { padding-block: 16px; }
+    .s-chev { display: inline-block; flex: none; width: 9px; height: 9px; border-right: 1.5px solid var(--sienna); border-bottom: 1.5px solid var(--sienna); transform: rotate(45deg) translateY(-2px); transition: transform .3s var(--ease); }
+    .scent.open .s-chev { transform: rotate(225deg) translateY(-2px); }
+    .scent .s-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s var(--ease); }
+    .scent .s-body > div { overflow: hidden; }
+    .scent.open .s-body { grid-template-rows: 1fr; }
+    .scent .s-body p { padding-top: 4px; }
+  }
+
+  .bespoke { background: var(--ink); color: var(--paper); }
+  .bespoke .inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(32px,5vw,72px); align-items: center; }
+  .bespoke h2 { font-size: clamp(30px,4vw,50px); color: var(--paper); margin: 14px 0 18px; }
+  .bespoke p { color: color-mix(in oklab, var(--paper) 70%, transparent); max-width: 54ch; }
+  .bespoke .eyebrow { color: color-mix(in oklab, var(--sienna) 75%, white); }
+  @media (max-width: 820px) { .bespoke .inner { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body data-page="fragrances">
+<div id="site-header"></div>
+
+<section class="wrap page-hero" style="max-width:980px;">
+  <span class="eyebrow" data-reveal>The fragrance library</span>
+  <h1 data-reveal>Every blend, made <em>in-house.</em></h1>
+  <p class="serif-lead" data-reveal style="margin-top:24px; max-width:52ch;">Our perfumes are made using the finest ingredients. Each blend uses a range of materials, including naturals and the very best synthetic elements — made with a great deal of care, excluding the hazardous mixes often present in less expensive combinations.</p>
+  <p data-reveal style="margin-top:18px; max-width:60ch; color:var(--ink-soft);">A new scent may take several months to create, and is often designed with its roots firmly sourced from a place or personal experience. Everything below is available across candles and diffusers; many blends extend to room sprays, washes and lotions.</p>
+
+  <div class="tone-finder" data-reveal>
+    <span class="eyebrow">Find your fragrance</span>
+    <p class="tf-lead">Pick the tones you love — we'll show you the blends that match.</p>
+    <div class="tf-pills">
+      <button class="tf-pill" type="button" data-tone="floral" aria-pressed="false">Floral</button>
+      <button class="tf-pill" type="button" data-tone="woody" aria-pressed="false">Woody &amp; Smoky</button>
+      <button class="tf-pill" type="button" data-tone="citrus" aria-pressed="false">Citrus &amp; Fresh</button>
+      <button class="tf-pill" type="button" data-tone="spiced" aria-pressed="false">Spiced &amp; Warm</button>
+      <button class="tf-pill" type="button" data-tone="fruity" aria-pressed="false">Fruity &amp; Sweet</button>
+      <button class="tf-pill" type="button" data-tone="herbal" aria-pressed="false">Herbal &amp; Green</button>
+    </div>
+    <div class="tf-status">
+      <span id="tfCount">Showing all <strong>106</strong> blends</span>
+      <button id="tfClear" type="button">Clear selection</button>
+    </div>
+  </div>
+
+  <nav class="coll-nav" data-reveal aria-label="Collections">
+      <a href="#edition" data-coll="edition">Edition</a>
+      <a href="#edition-intense" data-coll="edition-intense">Edition Intense</a>
+      <a href="#florals" data-coll="florals">Florals</a>
+      <a href="#spices-herbs-fresh" data-coll="spices-herbs-fresh">Spices, Herbs &amp; Fresh</a>
+      <a href="#autumn-winter" data-coll="autumn-winter">Autumn &amp; Winter</a>
+      <a href="#black-white" data-coll="black-white">Black White Collection</a>
+      <a href="#numbers-intense" data-coll="numbers-intense">Numbers Intense Collection</a>
+      <a href="#connoisseur-tea" data-coll="connoisseur-tea">Connoisseur Tea Collection</a>
+      <a href="#relax" data-coll="relax">Relax Collection</a>
+      <a href="#potager" data-coll="potager">Potager Collection</a>
+      <a href="#basics" data-coll="basics">Basics Collection</a>
+  </nav>
+</section>
+
+<div style="height: clamp(24px,4vh,48px);"></div>
+
+<section class="pad-s coll" id="edition">
+  <div class="wrap">
+    <div class="coll-head" data-reveal>
+      <span class="eyebrow"><span class="c-num">01</span> Edition</span>
+      <p class="c-blurb">The core perfume collection — our most loved blends.</p>
+    </div>
+    <div class="scent-grid">
+      <div class="scent" data-reveal data-tones="floral woody spiced">
+        <h3>Crimson Rose and Oud</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>The scent is a luxurious blend of crimson rose petals, smoked oud, spices of cloves, black pepper, and patchouli, elevated by the addition of opulent musk and amber.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody citrus fruity herbal">
+        <h3>Wild Blackberry &amp; Bayleaf</h3>
+        <div class="s-tones">Woody · Citrus · Fruity</div>
+        <p>A blend of fresh wild blackberries, cassis, fresh green bay, with a hint of citrus, surrounded by the scents of hedgerow woods and musk.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced">
+        <h3>Peony Jasmine &amp; Carnation</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Peony petals, jasmine blossom, carnation, and rose come together with a hint of amber and suede.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced fruity">
+        <h3>Florals Fig &amp; Amber</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Top notes of fig and fruity cassis lead to middle notes of soft floral scents, rose, watery jasmine, and dried fruits. The fragrance finishes with base notes of woody amber, musk, and the essence of fig.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral citrus spiced fruity">
+        <h3>Clementine Fizz</h3>
+        <div class="s-tones">Floral · Citrus · Spiced</div>
+        <p>Sparkling effervescent citrus top notes of clementine, pink grapefruit, and mandarin, blended with sweet fruity apple accords, a heart of jasmine and rose, on a base of sheer musk and vanilla.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus spiced">
+        <h3>Madame Coco</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>Top notes of bergamot and mandarin, a heart of jasmine, rose, and lily, resting on a base of sandalwood, patchouli, vanilla, musk, and woods.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody spiced fruity">
+        <h3>Smoked Birch, Walnut &amp; Spiced Rum</h3>
+        <div class="s-tones">Woody · Spiced · Fruity</div>
+        <p>A heavy, smoky aroma with warm, comforting top notes of roasted walnuts turns into a dry, woody heart of silver birch and sandalwood. The scent is dominated by a smoky base of guaiacwood, spiced rum, red cedarwood, and a drizzle of maple syrup.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody spiced">
+        <h3>Black Forest</h3>
+        <div class="s-tones">Woody · Spiced</div>
+        <p>A powerful blend of bark and wood essence, combined with cedar wood, smoke amber, and sandalwood creates a bold fragrance.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral citrus spiced">
+        <h3>Spiced Rose</h3>
+        <div class="s-tones">Floral · Citrus · Spiced</div>
+        <p>Citrus top notes blend with a combination of rose and neroli, warmed with spice and anise to create a lively fragrance.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody citrus spiced fruity">
+        <h3>Woodsmoke, Maple, Walnut and Plum</h3>
+        <div class="s-tones">Woody · Citrus · Spiced</div>
+        <p>A rich Canadian aroma, with indulgent top notes of maple, spiced plum, and citrus zest leads to the warm heart of walnut, cinnamon, clove, and berries. The scent rests on a smoky base of woodsmoke, cashmere musk, creamy vanilla, and a touch of leather.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus spiced">
+        <h3>Rose Musk Bergamot &amp; Cognac</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>A delicious feminine aroma with top notes of pink peppercorn, cumin, star anise, and bergamot blooms into the dusky heart of dewy rose, lily, violet, jasmine, and a splash of cognac. The scent comes to a close with a cloud of sultry musks, patchouli, tonka, amber, and a hint of birch.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced">
+        <h3>Musk Rose Amber &amp; Bourbon</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>A smoky rose fragrance with delicate musks entwined. Rich top notes of smoked bourbon fall gracefully onto the heart of crimson rose petals, dissolving effortlessly into the base of hot lava, birch tar, intoxicating musks, and raw golden amber accords.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced">
+        <h3>Frankincense, Leather &amp; Smoke</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Leathery, smoky, cedar wood, iris wood, birch, pepper, and frankincense.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody spiced">
+        <h3>Cinnamon Tonka Bean &amp; Oud</h3>
+        <div class="s-tones">Woody · Spiced</div>
+        <p>Wisps of coffee and ground cinnamon with a woody heart of smooth sandalwood, oud, and vetiver, and a warm backdrop of precious amber, musk, sweet benzoin, and tonka bean.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody citrus herbal">
+        <h3>Tangerine, Lime &amp; Fresh Basil</h3>
+        <div class="s-tones">Woody · Citrus · Herbal</div>
+        <p>A refreshing sophisticated citrus chypre with top notes of mandarin, tangerine, lemon, and lime, warmed with herbal and woody accords.</p>
+      </div>
+    </div>
+    <p class="coll-empty">No matches in this collection for your tones.</p>
+  </div>
+</section>
+<section class="pad-s coll alt" id="edition-intense">
+  <div class="wrap">
+    <div class="coll-head" data-reveal>
+      <span class="eyebrow"><span class="c-num">02</span> Edition Intense</span>
+      <p class="c-blurb">Deeper, longer-lasting versions of favourite blends.</p>
+    </div>
+    <div class="scent-grid">
+      <div class="scent" data-reveal data-tones="woody spiced">
+        <h3>Cuban Tobacco &amp; Oak</h3>
+        <div class="s-tones">Woody · Spiced</div>
+        <p>Aromatic vintage cologne notes lead into a heart of rich sweet tobacco, warm spices &amp; a hint of cognac. Smokey woods of oak, ebony &amp; incense combine with dark musks to complete the fragrance.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody spiced herbal">
+        <h3>Ginkgo</h3>
+        <div class="s-tones">Woody · Spiced · Herbal</div>
+        <p>A fragrance inspired by the yellow ginkgo leaves in Autumn in Geneva. Green leafy birch notes entwine with smooth woods, smokey vetivert and earthy patchouli. A touch of black pepper and cardamom adds a spicy twist.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral citrus spiced">
+        <h3>Spiced Rose</h3>
+        <div class="s-tones">Floral · Citrus · Spiced</div>
+        <p>Citrus top notes with a combination of Rose, Neroli, warmed with Spice &amp; Anise.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced">
+        <h3>Peony Jasmine &amp; Carnation</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Peony petal, Jasmine blossom, Carnation and Rose, with a hint of Amber &amp; Suede</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody spiced">
+        <h3>Agarwood &amp; Tobacco</h3>
+        <div class="s-tones">Woody · Spiced</div>
+        <p>The distinctive scent of agarwood (oud) combined with smoky aromatic tobacco, precious amber, rich spices of red ginger and black-pepper with a hint of fine aged whisky. A trail of sensuous musk, silky sandalwood, cedar, vetivers and vintage suede brings a calming warmth to this composed blend.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody spiced">
+        <h3>Oud &amp; Woodsmoke</h3>
+        <div class="s-tones">Woody · Spiced</div>
+        <p>A luxurious creation of oud wood laced with the finest cognac, sweet aromatic tobacco and the smokey aroma of a warm, crackling log fire.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced">
+        <h3>Crimson Rose &amp; Oud</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Crimson Rose Petals, smoked Oud, spices of Clove, Black Pepper, Patchouli with Opulent Musk &amp; Amber.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced">
+        <h3>Black Amber &amp; Oud</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Woody fusion of patchouli, vetivert and oud interlaced with gentle floral notes of jasmine and white lily finished with rich, luxurious amber and sheer musks.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced">
+        <h3>Charcoal Rose</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Smokey guaiacwood echoes whispers of burning embers from camp fires on the Great Plains; dark rose and rich jasmine reflect the grandeur of the Baroque era whilst smooth sandalwood, arid cedar, precious ambers and creamy vanilla lend a contemporary flourish.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody citrus fruity herbal">
+        <h3>Wild Blackberry &amp; Bayleaf</h3>
+        <div class="s-tones">Woody · Citrus · Fruity</div>
+        <p>A Blend of fresh wild Blackberries cassis, fresh Green Bay, A hint of citrus with hedgerow woods &amp; Musk</p>
+      </div>
+    </div>
+    <p class="coll-empty">No matches in this collection for your tones.</p>
+  </div>
+</section>
+<section class="pad-s coll" id="florals">
+  <div class="wrap">
+    <div class="coll-head" data-reveal>
+      <span class="eyebrow"><span class="c-num">03</span> Florals</span>
+      <p class="c-blurb">From English cabbage rose to heady tuberose.</p>
+    </div>
+    <div class="scent-grid">
+      <div class="scent" data-reveal data-tones="floral spiced">
+        <h3>Black Tulip &amp; Jasmin</h3>
+        <div class="s-tones">Floral · Spiced</div>
+        <p>A rich sumptuous powdery floral, with notes of Violet, Tuberose, Jasmine, Creamy Vanilla &amp; Velvet Musks.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral fruity herbal">
+        <h3>French Chateaux</h3>
+        <div class="s-tones">Floral · Fruity · Herbal</div>
+        <p>A deep fresh floral with very green grass top notes combined with Honeysuckle, Jasmine &amp; Earthy Base notes.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced herbal">
+        <h3>Lavender &amp; Geranium</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Fresh green herbal top notes with a hint of Ginger. Floral herbal heart of Lavender, Geranium &amp; Rose, Woody Amber base notes with Patchouli &amp; Musk.</p>
+        <div class="s-tags"><span>Wash</span><span>Lotion</span><span>Room Spray</span></div>
+      </div>
+      <div class="scent" data-reveal data-tones="floral citrus herbal">
+        <h3>Summer Lawn</h3>
+        <div class="s-tones">Floral · Citrus · Herbal</div>
+        <p>Light white floral mix with fresh cut grass.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus spiced">
+        <h3>Black Iris &amp; Sweet Bergamot</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>A modern floral with luxurious Black Iris, Sweet Bergamot, Jasmine – Tuberose – White Rose – Carnation, Calla Lily, underscored with Light Cedar, Heliotrope, Vanilla &amp; Elegant Musks.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced fruity">
+        <h3>Parisian Violet</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Luxurious velvety floriental opening with deep purple violets, Ylang Ylang, Anise &amp; Cassis, Velvet Rose, Iris, Plum, Jasmine, Geranium, Sandalwood, Amber, Heliotrope, Raspberry &amp; Velvet Musks</p>
+        <div class="s-tags"><span>Wash</span><span>Lotion</span></div>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody">
+        <h3>Black Peony &amp; Musk</h3>
+        <div class="s-tones">Floral · Woody</div>
+        <p>Heady floral notes blended with Rose, Geranium, Carnation, Lily, &amp; Lilac all combined with soft woods &amp; sensual musks.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral citrus spiced herbal">
+        <h3>Italian Garden</h3>
+        <div class="s-tones">Floral · Citrus · Spiced</div>
+        <p>Very green clipped hedges &amp; freshly cut grass with a heady floral heart of Tuberose, Lily, Gardenia &amp; jasmine. Combined with Ylang Ylang, Galbanum, Cinnamon, &amp; Lemon oil.</p>
+        <div class="s-tags"><span>Wash</span><span>Lotion</span><span>Room Spray</span></div>
+      </div>
+      <div class="scent" data-reveal data-tones="woody citrus spiced">
+        <h3>Cashmere Musk Patchouli</h3>
+        <div class="s-tones">Woody · Citrus · Spiced</div>
+        <p>Deep dark sophisticated accord dominated by black amber woods infused with Clementine, Guaiacwood, Cedarwood, Patchouli, Saffron &amp; Ginger, Birch Tar, Vetiver &amp; Cashmere Musks.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral citrus spiced">
+        <h3>Tuberose &amp; Orange Blossom</h3>
+        <div class="s-tones">Floral · Citrus · Spiced</div>
+        <p>A rich heady, indulgent multi floral dominated by notes of Tuberose, Jasmine &amp; Orangeblossom, Ylang Ylang, Lily &amp; Violet, Vanilla &amp; Velvet Musks.</p>
+        <div class="s-tags"><span>Wash</span><span>Lotion</span></div>
+      </div>
+      <div class="scent" data-reveal data-tones="floral">
+        <h3>Damask Rose</h3>
+        <div class="s-tones">Floral</div>
+        <p>Heady English cabbage rose infused with Watery Green, Iris &amp; Geranium oil.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced">
+        <h3>No.40</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Geranium, Velvet Rose, Peony, Magnolia, &amp; Jasmine, with tones of Amber, Musk &amp; White Cedar</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced">
+        <h3>Black Rose &amp; Frankincense</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>A blend of black rose, Geranium, Frankincense &amp; Myrrh combined with spices, Amber &amp; musks.</p>
+        <div class="s-tags"><span>Wash</span><span>Lotion</span></div>
+      </div>
+      <div class="scent" data-reveal data-tones="floral citrus spiced">
+        <h3>Indian Ginger Lily</h3>
+        <div class="s-tones">Floral · Citrus · Spiced</div>
+        <p>Very heady exotic floral Ginger Lily with green top notes &amp; Orange Blossom.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody herbal">
+        <h3>Black Peony &amp; Wisteria</h3>
+        <div class="s-tones">Floral · Woody · Herbal</div>
+        <p>Top notes of Green leaf, Peony &amp; Rose with heady middle &amp; base notes of Carnation, Vetiver, Iris Wood, Muguet &amp; Cedarwood.</p>
+        <div class="s-tags"><span>Room Spray</span></div>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus fruity">
+        <h3>Gardenia</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>Deep rich Gardenia with Bergamot, Ylang Ylang, Cassis, Violet, Rose, Lily, Jasmine &amp; Iris Wood, with rich base notes of Sandalwood &amp; Musk.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus spiced">
+        <h3>White No. 10</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>Delicate white floral combination with clouds of soft musks, Lemon &amp; Patchouli oil and a hint of Vanilla.</p>
+        <div class="s-tags"><span>Wash</span><span>Lotion</span></div>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced fruity">
+        <h3>Sweet Iriswood</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Glorious indulgent blend of Iris Blossom, Jasmine, Iris wood, Caramel, Sandalwood &amp; Amber.</p>
+      </div>
+    </div>
+    <p class="coll-empty">No matches in this collection for your tones.</p>
+  </div>
+</section>
+<section class="pad-s coll alt" id="spices-herbs-fresh">
+  <div class="wrap">
+    <div class="coll-head" data-reveal>
+      <span class="eyebrow"><span class="c-num">04</span> Spices, Herbs &amp; Fresh</span>
+      <p class="c-blurb">Green, zesty and aromatic — kitchen garden to seashore.</p>
+    </div>
+    <div class="scent-grid">
+      <div class="scent" data-reveal data-tones="woody citrus spiced">
+        <h3>Classic No.12</h3>
+        <div class="s-tones">Woody · Citrus · Spiced</div>
+        <p>A rich mix of Vetiver, Bergamot, Heady Musks, Amber, Lemon &amp; Cedarwood.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="citrus herbal">
+        <h3>Lemongrass &amp; Coriander</h3>
+        <div class="s-tones">Citrus · Herbal</div>
+        <p>A very heady infusion of fragrant Lemongrass &amp; Coriander leaves &amp; oils.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus spiced">
+        <h3>Grapefruit &amp; Cedarwood</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>Grapefruit, Lemon &amp; Lime top notes with a smooth middle of Jasmine, Vetiver &amp; Cedarwood, underscored with Amber &amp; Musks</p>
+        <div class="s-tags"><span>Wash</span><span>Lotion</span><span>Room Spray</span></div>
+      </div>
+      <div class="scent" data-reveal data-tones="citrus fruity">
+        <h3>Seaside Pier</h3>
+        <div class="s-tones">Citrus · Fruity</div>
+        <p>Seaside fantasy bringing together some of the most popular aromas and treats a day there brings, fresh salty sea air and warm sandy beaches mingled with the sugary sweet aroma of pink candy floss and ice cream cones.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="fruity">
+        <h3>Gooseberry &amp; Cranberry</h3>
+        <div class="s-tones">Fruity</div>
+        <p>Fruity, sharp, green, Cranberry &amp; Gooseberry top notes with a hint of sweet Apple &amp; Plum.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus">
+        <h3>Seashore</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>Watery floral with white narcissus, jasmine and waterlily freshened by a twist of sea salt, resting on a base of blonde woods and moss.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus spiced fruity">
+        <h3>Fig &amp; Parsley</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>Fresh lemon zest and fig leaf blend with green cassis and willow blossom, softened by blonde woods, musk and amber with a complimenting hint of coconut.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="citrus spiced herbal">
+        <h3>Green Tea &amp; Ginger</h3>
+        <div class="s-tones">Citrus · Spiced · Herbal</div>
+        <p>Very fresh Green Tea notes, combined with Lemon, Orange &amp; Ginger oil.</p>
+        <div class="s-tags"><span>Wash</span><span>Lotion</span></div>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced herbal">
+        <h3>Sandalwood &amp; Vetiver</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Rich Sandalwood, Vetiver oil combined with Cedarwood, Patchouli, Rosemary &amp; Clove leaf oil.</p>
+        <div class="s-tags"><span>Wash</span><span>Lotion</span></div>
+      </div>
+    </div>
+    <p class="coll-empty">No matches in this collection for your tones.</p>
+  </div>
+</section>
+<section class="pad-s coll" id="autumn-winter">
+  <div class="wrap">
+    <div class="coll-head" data-reveal>
+      <span class="eyebrow"><span class="c-num">05</span> Autumn &amp; Winter</span>
+      <p class="c-blurb">Seasonal warmth — pine forests, dark amber and spice.</p>
+    </div>
+    <div class="scent-grid">
+      <div class="scent" data-reveal data-tones="woody citrus spiced fruity">
+        <h3>Alpine Winter</h3>
+        <div class="s-tones">Woody · Citrus · Spiced</div>
+        <p>A combination of pine forests with hints of log burners, sweet Marzipan Stollen cake &amp; Gluwein. Contains essential oils of Eucalyptus, Fir Needle, Peppermint, Birch tar, Vanilla.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus spiced">
+        <h3>Dark Amber</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>A heady, rich, Dark Amber base, warmed with Vanilla &amp; Patchouli, freshened top notes of Bergamot, Mandarin &amp; Lemon, smoothed with Jasmine, Casablanca lily &amp; Tuberose.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced">
+        <h3>Original Spice</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>A Spicy floral with sweet wood &amp; Vanilla combined with Rose, Carnation, Nutmeg, Birch tar, Guaiacwood, Cinnamon leaf &amp; Clove bud oil.</p>
+        <div class="s-tags"><span>Room Spray</span></div>
+      </div>
+      <div class="scent" data-reveal data-tones="woody spiced">
+        <h3>Winter Garland</h3>
+        <div class="s-tones">Woody · Spiced</div>
+        <p>Very fresh green with base notes of Pine needle &amp; Amber.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus fruity herbal">
+        <h3>Wild Berry &amp; Cassis</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>Wild green earthy deep and exotic Cassis berries with notes of Italian Bergamot, rich red Rose, heady Jasmine, fresh cut grass, Cassis berries &amp; leaves, earthy Galbanum oil &amp; dry powdery Oak moss, Bergamot.</p>
+      </div>
+    </div>
+    <p class="coll-empty">No matches in this collection for your tones.</p>
+  </div>
+</section>
+<section class="pad-s coll alt" id="black-white">
+  <div class="wrap">
+    <div class="coll-head" data-reveal>
+      <span class="eyebrow"><span class="c-num">06</span> Black White Collection</span>
+      <p class="c-blurb">Dark, rich, heady blends in monochrome packaging.</p>
+    </div>
+    <div class="scent-grid">
+      <div class="scent" data-reveal data-tones="floral woody citrus herbal">
+        <h3>Juniper &amp; Sicilian Citrus</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>Refreshing clean citrus herbal accord with bergamot, sicilian lemon, mandarin, bay, juniper, geranium, rosemary, lavandin, basil, vetiver &amp; oakmoss.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody citrus spiced">
+        <h3>Lemon Cedar &amp; Oakmoss</h3>
+        <div class="s-tones">Woody · Citrus · Spiced</div>
+        <p>Citrus aromatic green top notes with lemon and fir needle. Rich woody amber heart revealing a base of patchouli, vetiver, cedar and oakmoss.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced herbal">
+        <h3>Tuscan Leather</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Thyme, Muguet, Iriswood, Cedarwood, Labdanum &amp; Saffron, Vetiver, Amber &amp; Suede/Leather.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="citrus herbal">
+        <h3>Basil &amp; Italian Cypress</h3>
+        <div class="s-tones">Citrus · Herbal</div>
+        <p>A fresh contemporary fragrance with citrus notes of bergamot and zesty lemon, hints of green basil leaf and ice cool spearmint.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus spiced herbal">
+        <h3>Sandalwood, Leather &amp; Jasmin</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>Inspired by Egoiste accords, a modern leathery woody amber cologne with notes of lavender, lemon, vetiver, sandalwood, cedar, leather &amp; jasmin.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced herbal">
+        <h3>Coriander Leaf, Cedar &amp; Lavender</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Fresh green spicy herbal notes of coriander leaf with supporting notes of rosemary, clove, lavender, cypress &amp; cedarwood</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus spiced herbal">
+        <h3>Bergamot, Lemon &amp; Geranium</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>Inspired by the notes of Terre, this blend is woody, amber and aromatic with notes of vetiver, patchouli, cypress, bergamot, lemon and geranium.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody">
+        <h3>Bluebell</h3>
+        <div class="s-tones">Floral · Woody</div>
+        <p>A vibrant green floral fragrance of woodland bluebells and hyacinth underlain with warm woods and mosses.</p>
+      </div>
+    </div>
+    <p class="coll-empty">No matches in this collection for your tones.</p>
+  </div>
+</section>
+<section class="pad-s coll" id="numbers-intense">
+  <div class="wrap">
+    <div class="coll-head" data-reveal>
+      <span class="eyebrow"><span class="c-num">07</span> Numbers Intense Collection</span>
+      <p class="c-blurb">Eight concentrated blends, simply numbered.</p>
+    </div>
+    <div class="scent-grid">
+      <div class="scent" data-reveal data-tones="citrus spiced">
+        <h3>One</h3>
+        <div class="s-tones">Citrus · Spiced</div>
+        <p>Fresh tea &amp; ginger with top notes of lemon &amp; orange.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody">
+        <h3>Five</h3>
+        <div class="s-tones">Floral · Woody</div>
+        <p>Heady black rose &amp; frankincense, topped with sweet notes.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody fruity">
+        <h3>Two</h3>
+        <div class="s-tones">Floral · Woody · Fruity</div>
+        <p>Honeysuckle, jasmine, earthy moss, cistus with deep green notes.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced">
+        <h3>Six</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Intense white flowers – carnation &amp; vetivert with powdery musk &amp; spice.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced herbal">
+        <h3>Three</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Heavy floral with lavender, geranium, musk, amber, sandalwood &amp; patchouli.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="fruity herbal">
+        <h3>Seven</h3>
+        <div class="s-tones">Fruity · Herbal</div>
+        <p>Wild berries – cassis, rich dark plum &amp; fresh green leaf.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody citrus spiced">
+        <h3>Four</h3>
+        <div class="s-tones">Woody · Citrus · Spiced</div>
+        <p>Rich zesty grapefruit, saffron, black pepper, cedarwood, amber &amp; leather.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced">
+        <h3>Eight</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Dark amber, labdanum, patchouli, saffron &amp; sultry ylang.</p>
+      </div>
+    </div>
+    <p class="coll-empty">No matches in this collection for your tones.</p>
+  </div>
+</section>
+<section class="pad-s coll alt" id="connoisseur-tea">
+  <div class="wrap">
+    <div class="coll-head" data-reveal>
+      <span class="eyebrow"><span class="c-num">08</span> Connoisseur Tea Collection</span>
+      <p class="c-blurb">Elegant tea-based scents — distinctive and quietly luxurious.</p>
+    </div>
+    <div class="scent-grid">
+      <div class="scent" data-reveal data-tones="floral citrus spiced fruity">
+        <h3>White Peony &amp; Coconut Chai</h3>
+        <div class="s-tones">Floral · Citrus · Spiced</div>
+        <p>Citrus and white peony tea accords are warmed by notes of coconut chai with exotic imperial spices of ginger, clove and cardamom seed. Base notes of amber and vanilla complete this inspiring blend.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral citrus fruity herbal">
+        <h3>Rooibos &amp; Gotu Kola Leaf</h3>
+        <div class="s-tones">Floral · Citrus · Fruity</div>
+        <p>Citrus bergamot notes top a fusion of rooibos, red petals and gotu kola leaf with camomile and marigold flowers sweetened by the sheerest hint of honey in the backdrop.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="citrus fruity herbal">
+        <h3>Blackcurrant &amp; Beetroot</h3>
+        <div class="s-tones">Citrus · Fruity · Herbal</div>
+        <p>The deep earthiness of purple beetroot is complemented by the tangy, sweetness of juicy, ripe blackcurrants. A twist of spearmint gives a cool crispness to this unique blend.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral spiced fruity">
+        <h3>Honeybush &amp; Rosehip Tea</h3>
+        <div class="s-tones">Floral · Spiced · Fruity</div>
+        <p>Notes of honey bush flowers fragrantly scented with the sweet smell of honey infused fruity rosehip, plum and red rose petals. Soft spices and hits of vanilla.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral">
+        <h3>Black Tea &amp; Damask Rose</h3>
+        <div class="s-tones">Floral</div>
+        <p>Young rosebuds and soft petals atop the sweet fullness of China Black tea.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody citrus herbal">
+        <h3>Moringa &amp; Nettle Tea</h3>
+        <div class="s-tones">Woody · Citrus · Herbal</div>
+        <p>A cleansing infusion blending aromatic accords of moringa leaf, nettle tea, lemon myrtle leaf, coriander seeds and wild thyme supported by undertones of mossy and earthy woods.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus spiced">
+        <h3>White Peony Rose Tea</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>A floral tisane of white peony buds and rose petals enriched with spices of clove, ginger and cardamom. Sweet lemon top note refreshes the blend whilst woody base notes of cedar and earthy patchouli give warm depth.</p>
+      </div>
+    </div>
+    <p class="coll-empty">No matches in this collection for your tones.</p>
+  </div>
+</section>
+<section class="pad-s coll" id="relax">
+  <div class="wrap">
+    <div class="coll-head" data-reveal>
+      <span class="eyebrow"><span class="c-num">09</span> Relax Collection</span>
+      <p class="c-blurb">Calming blends for rest and stillness.</p>
+    </div>
+    <div class="scent-grid">
+      <div class="scent" data-reveal data-tones="floral spiced">
+        <h3>RELAX Number 1</h3>
+        <div class="s-tones">Floral · Spiced</div>
+        <p>Summer lilies, white florals, amber, and musk.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus spiced">
+        <h3>RELAX number 2</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>A mix of patchouli and tonka bean with the base notes of bergamot, violet, cedar, hawthorn, and sandalwood.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody spiced">
+        <h3>RELAX Number 3</h3>
+        <div class="s-tones">Woody · Spiced</div>
+        <p>A combination of soft smoke, oud, musk, and cognac.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral citrus spiced herbal">
+        <h3>Relax Number 4</h3>
+        <div class="s-tones">Floral · Citrus · Spiced</div>
+        <p>A fresh minty, herbal, floral with notes of lavender, peppermint, and sage with powdery base notes.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral citrus herbal">
+        <h3>Relax Number 5</h3>
+        <div class="s-tones">Floral · Citrus · Herbal</div>
+        <p>Summer border florals combined with the heady scent of fresh cut grass.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="citrus spiced herbal">
+        <h3>Relax Number 6</h3>
+        <div class="s-tones">Citrus · Spiced · Herbal</div>
+        <p>Fresh green leaves with hints of orange and lemon, laced with ginger, with a calm note of lavender.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus spiced herbal">
+        <h3>Relax Number 7</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>Herbal green, with notes of sage, eucalyptus, rosemary, thyme, origanum and leafy greens. A floral and spicy blend of lavender, clove, muguet, earthy patchouli, musk and cedar wood.</p>
+      </div>
+    </div>
+    <p class="coll-empty">No matches in this collection for your tones.</p>
+  </div>
+</section>
+<section class="pad-s coll alt" id="potager">
+  <div class="wrap">
+    <div class="coll-head" data-reveal>
+      <span class="eyebrow"><span class="c-num">10</span> Potager Collection</span>
+      <p class="c-blurb">The kitchen garden, bottled — playful and unexpected.</p>
+    </div>
+    <div class="scent-grid">
+      <div class="scent" data-reveal data-tones="floral herbal">
+        <h3>Greenhouse Tomato</h3>
+        <div class="s-tones">Floral · Herbal</div>
+        <p>Green, rose, earthy, sweet pea, floral, and tomato.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody fruity">
+        <h3>Sweet Pea Pods</h3>
+        <div class="s-tones">Floral · Woody · Fruity</div>
+        <p>Floral woody, musk, fruity, orris, and green.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced fruity herbal">
+        <h3>Pear &amp; Roasted Artichoke, Cedar &amp; Coconut</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Apple, clove, green, pear, lily of the valley, floral, red fruits, rose, fruity, cedar, resinous, musk, peach, coconut, amber, and vanilla.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody spiced fruity herbal">
+        <h3>Fennel &amp; Liquorice</h3>
+        <div class="s-tones">Woody · Spiced · Fruity</div>
+        <p>Liquorice, ginger, fruity, woody, and spicy.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus spiced herbal">
+        <h3>Radish, Green Pepper &amp; Vetiver</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>Amber, vegetable, pepper, fresh, floral, bergamot, pine, musk, cedar, earthy, patchouli, vetiver, sandalwood, and wood.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody citrus spiced herbal">
+        <h3>Carrot &amp; Coriander</h3>
+        <div class="s-tones">Woody · Citrus · Spiced</div>
+        <p>Hints of grapefruit, mint, coriander, carrot combine to make a scent underlined with cedar, anise, and eucalyptus,</p>
+      </div>
+      <div class="scent" data-reveal data-tones="herbal">
+        <h3>Beetroot</h3>
+        <div class="s-tones">Herbal</div>
+        <p>An earthy sweet aroma of beets and fresh vegetables</p>
+      </div>
+    </div>
+    <p class="coll-empty">No matches in this collection for your tones.</p>
+  </div>
+</section>
+<section class="pad-s coll" id="basics">
+  <div class="wrap">
+    <div class="coll-head" data-reveal>
+      <span class="eyebrow"><span class="c-num">11</span> Basics Collection</span>
+      <p class="c-blurb">Twelve simple numbered blends, ready for any range.</p>
+    </div>
+    <div class="scent-grid">
+      <div class="scent" data-reveal data-tones="woody spiced">
+        <h3>Number 1</h3>
+        <div class="s-tones">Woody · Spiced</div>
+        <p>Cinnamon, sandalwood and oud with hints of vetiver and amber.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral citrus fruity">
+        <h3>Number 4</h3>
+        <div class="s-tones">Floral · Citrus · Fruity</div>
+        <p>Champagne, grapefruit, mandarin rose and jasmine.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="citrus herbal">
+        <h3>Number 7</h3>
+        <div class="s-tones">Citrus · Herbal</div>
+        <p>Tangerine, lime and basil.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody citrus fruity">
+        <h3>Number 10</h3>
+        <div class="s-tones">Floral · Woody · Citrus</div>
+        <p>Bergamot, honeysuckle, hawthorn, violet and cedar.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody">
+        <h3>Number 2</h3>
+        <div class="s-tones">Floral · Woody</div>
+        <p>Frankincense, leather and woodsmoke with notes of iris wood.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody spiced">
+        <h3>Number 5</h3>
+        <div class="s-tones">Floral · Woody · Spiced</div>
+        <p>Rose, lily, sandle wood, and patchouli with hints of vanilla and musk.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="woody citrus">
+        <h3>Number 8</h3>
+        <div class="s-tones">Woody · Citrus</div>
+        <p>Lemon, verbena, citrus leaves and wood.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral woody">
+        <h3>Number 11</h3>
+        <div class="s-tones">Floral · Woody</div>
+        <p>Geranium, carnation, rose, lily and soft wood.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral spiced fruity">
+        <h3>Number 3</h3>
+        <div class="s-tones">Floral · Spiced · Fruity</div>
+        <p>Fruity fig, soft florals with amber and cassis.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral spiced fruity">
+        <h3>Number 6</h3>
+        <div class="s-tones">Floral · Spiced · Fruity</div>
+        <p>Pomegranate noir, plum, jasmine, pink peppercorn and lily.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral citrus herbal">
+        <h3>Number 9</h3>
+        <div class="s-tones">Floral · Citrus · Herbal</div>
+        <p>Fresh linen, lavender, sage and soft florals.</p>
+      </div>
+      <div class="scent" data-reveal data-tones="floral fruity herbal">
+        <h3>Number 12</h3>
+        <div class="s-tones">Floral · Fruity · Herbal</div>
+        <p>Fresh green grass, honeysuckle, and jasmine.</p>
+      </div>
+    </div>
+    <p class="coll-empty">No matches in this collection for your tones.</p>
+  </div>
+</section>
+
+<!-- BESPOKE -->
+<section class="pad bespoke">
+  <div class="wrap inner">
+    <div data-reveal>
+      <span class="eyebrow">Custom &amp; matched scents</span>
+      <h2>Can't find it here?<br>We'll blend it.</h2>
+      <p>We produce custom combinations based on your personal brief — or match an existing perfume from a supplied sample. It's how many of our own-label partners begin.</p>
+    </div>
+    <div data-reveal>
+      <a href="consultation.html" class="btn">Request a trade consultation <span class="arrow">→</span></a>
+      <div class="call-line" style="justify-content:flex-start;">Prefer to talk it through? <a href="tel:+441342310810"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8 h2.4 l1.2 3 -1.5 1.2 a8.5 8.5 0 0 0 4.9 4.9 l1.2-1.5 3 1.2 v2.4 a1.2 1.2 0 0 1-1.3 1.2 A12.2 12.2 0 0 1 1.8 3.1 1.2 1.2 0 0 1 3 1.8 Z"/></svg>Call 01342 310810</a></div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+<script src="site.js"></script>
+<script>
+(function () {
+  var active = [];
+  var pills = document.querySelectorAll('.tf-pill');
+  var scents = document.querySelectorAll('.scent');
+  var colls = document.querySelectorAll('.coll');
+  var navLinks = document.querySelectorAll('.coll-nav a');
+  var count = document.getElementById('tfCount');
+  var clearBtn = document.getElementById('tfClear');
+  var TOTAL = 106;
+
+  function apply() {
+    document.body.classList.toggle('filtered', active.length > 0);
+    var shown = 0;
+    scents.forEach(function (s) {
+      var tones = (s.getAttribute('data-tones') || '').split(' ');
+      var match = active.every(function (t) { return tones.indexOf(t) !== -1; });
+      var visible = active.length === 0 || match;
+      s.classList.toggle('hide', !visible);
+      if (visible) { shown++; s.classList.add('in'); }
+    });
+    colls.forEach(function (c) {
+      var any = c.querySelectorAll('.scent:not(.hide)').length > 0;
+      c.classList.toggle('empty', !any);
+      c.querySelectorAll('[data-reveal]').forEach(function (el) { el.classList.add('in'); });
+    });
+    navLinks.forEach(function (a) {
+      var sec = document.getElementById(a.getAttribute('data-coll'));
+      a.classList.toggle('dim', sec ? sec.classList.contains('empty') : false);
+    });
+    if (active.length === 0) {
+      count.innerHTML = 'Showing all <strong>' + TOTAL + '</strong> blends';
+    } else if (shown === 0) {
+      count.innerHTML = 'No blends match all of those tones — try fewer, or <strong>ask us to blend one</strong>.';
+    } else {
+      count.innerHTML = '<strong>' + shown + '</strong> of ' + TOTAL + ' blends match your tones';
+    }
+  }
+
+  pills.forEach(function (p) {
+    p.addEventListener('click', function () {
+      var t = p.getAttribute('data-tone');
+      var i = active.indexOf(t);
+      if (i === -1) { active.push(t); p.classList.add('on'); p.setAttribute('aria-pressed', 'true'); }
+      else { active.splice(i, 1); p.classList.remove('on'); p.setAttribute('aria-pressed', 'false'); }
+      apply();
+    });
+  });
+  clearBtn.addEventListener('click', function () {
+    active = [];
+    pills.forEach(function (p) { p.classList.remove('on'); p.setAttribute('aria-pressed', 'false'); });
+    apply();
+  });
+
+  // ---- mobile: collapse descriptions under a toggle ----
+  var mq = window.matchMedia('(max-width: 760px)');
+  scents.forEach(function (s) {
+    var p = s.querySelector('p');
+    var tags = s.querySelector('.s-tags');
+    if (!p) return;
+    var body = document.createElement('div');
+    body.className = 's-body';
+    var inner = document.createElement('div');
+    body.appendChild(inner);
+    inner.appendChild(p);
+    if (tags) inner.appendChild(tags);
+    s.appendChild(body);
+    var h3 = s.querySelector('h3');
+    var chev = document.createElement('span');
+    chev.className = 's-chev';
+    chev.setAttribute('aria-hidden', 'true');
+    h3.appendChild(chev);
+    h3.setAttribute('role', 'button');
+    h3.setAttribute('tabindex', '0');
+    h3.setAttribute('aria-expanded', 'false');
+    function toggle() {
+      if (!mq.matches) return;
+      var open = s.classList.toggle('open');
+      h3.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    h3.addEventListener('click', toggle);
+    h3.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggle(); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

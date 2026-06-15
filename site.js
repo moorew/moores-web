@@ -35,7 +35,7 @@
     '<path d="M15 13.8 C12.1 17.6 11 19.6 11 22.6 a4 4 0 0 0 8 0 C19 19.6 17.9 17.6 15 13.8 Z" stroke-width="1.15" stroke-linejoin="round" stroke-linecap="round"/>' +
     '<path d="M15 30.8 L15 37" stroke-width="1.4" stroke-linecap="round"/></svg>';
 
-  var TEL_ICON = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px;flex:none;">' +
+  var TEL_ICON = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
     '<path d="M3 1.8 h2.4 l1.2 3 -1.5 1.2 a8.5 8.5 0 0 0 4.9 4.9 l1.2-1.5 3 1.2 v2.4 a1.2 1.2 0 0 1-1.3 1.2 A12.2 12.2 0 0 1 1.8 3.1 1.2 1.2 0 0 1 3 1.8 Z"/></svg>';
 
   var CSS = `
@@ -51,7 +51,7 @@
   .head-cta .btn{white-space:nowrap;}
   .head-tel{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-weight:500;font-size:15px;letter-spacing:.05em;color:var(--ink);white-space:nowrap;transition:color .3s var(--ease);}
   .head-tel:hover{color:var(--sienna);}
-  .head-tel svg{color:var(--sienna);}
+  .head-tel svg{color:var(--sienna);width:14px;height:14px;flex:none;}
   /* burger */
   .burger{display:none;background:none;border:0;cursor:pointer;padding:10px;margin-right:-10px;}
   .burger span{display:block;width:22px;height:1.5px;background:var(--ink);margin:5px 0;transition:transform .3s var(--ease),opacity .3s var(--ease);}
@@ -65,7 +65,7 @@
   .mob-menu a.mnav.active{color:var(--sienna);}
   .mob-menu .m-actions{margin-top:28px;display:flex;flex-direction:column;gap:14px;}
   .mob-menu .m-tel{display:flex;align-items:center;gap:12px;font-family:var(--sans);font-weight:500;font-size:20px;color:var(--ink);}
-  .mob-menu .m-tel svg{color:var(--sienna);width:18px;height:18px;}
+  .mob-menu .m-tel svg{color:var(--sienna);width:18px;height:18px;flex:none;}
   .mob-menu .m-note{font-size:13.5px;color:var(--ink-soft);}
   /* staged collapse — keep the full nav visible as long as it genuinely fits */
   @media (max-width:1120px){ .head-tel{display:none;} }
@@ -85,7 +85,7 @@
   .call-line{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:22px;font-family:var(--sans);font-size:15px;color:var(--ink-soft);flex-wrap:wrap;}
   .call-line a{display:inline-flex;align-items:center;gap:8px;font-weight:500;color:var(--ink);border-bottom:1px solid var(--sienna);padding-bottom:1px;}
   .call-line a:hover{color:var(--sienna);}
-  .call-line a svg{color:var(--sienna);}
+  .call-line a svg{color:var(--sienna);width:14px;height:14px;flex:none;}
   .cta-band .call-line{color:color-mix(in oklab,var(--paper) 65%,transparent);}
   .cta-band .call-line a{color:var(--paper);border-color:var(--brass);}
   .cta-band .call-line a svg{color:var(--brass);}
@@ -99,9 +99,9 @@
   .foot a{color:color-mix(in oklab,var(--paper) 82%,transparent);font-size:15px;display:block;padding:5px 0;}
   .foot a:hover{color:var(--paper);}
   .foot .addr{color:color-mix(in oklab,var(--paper) 70%,transparent);font-size:15px;line-height:1.8;max-width:30ch;margin-top:22px;}
-  .foot-tel{display:inline-flex;align-items:center;gap:12px;font-family:var(--display);font-size:clamp(24px,2.6vw,30px);line-height:1;color:var(--paper) !important;padding:2px 0 !important;margin-top:4px;}
-  .foot-tel svg{color:var(--brass);width:19px;height:19px;flex:none;position:relative;top:1px;}
-  .foot-tel:hover{color:color-mix(in oklab,var(--brass) 85%,white) !important;}
+  .foot a.foot-tel{display:inline-flex;align-items:center;gap:11px;white-space:nowrap;font-family:var(--display);font-size:clamp(24px,2.6vw,30px);line-height:1;color:var(--paper) !important;padding:2px 0 !important;margin-top:4px;}
+  .foot a.foot-tel svg{color:var(--brass);width:20px;height:20px;flex:none;position:relative;top:0.06em;}
+  .foot a.foot-tel:hover{color:color-mix(in oklab,var(--brass) 85%,white) !important;}
   .foot .tel-note{font-size:13px;color:color-mix(in oklab,var(--paper) 55%,transparent);margin-top:6px;line-height:1.6;}
   .foot-base{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;padding-top:28px;font-size:12.5px;color:color-mix(in oklab,var(--paper) 55%,transparent);letter-spacing:.04em;}
   @media (max-width:760px){.foot-grid{grid-template-columns:1fr;gap:40px;}}

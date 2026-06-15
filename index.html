@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moores Home &amp; Garden — Hand-poured Candles &amp; Home Fragrance, Sussex</title>
+<meta name="description" content="A Sussex fragrance workshop hand-pouring candles, diffusers, Eau de Parfum and home fragrance for retailers, hotels and own-label brands — over 100 fragrances, made to order.">
+<link rel="canonical" href="https://mooreshomeandgarden.com/">
+<meta name="theme-color" content="#2A211A">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Moores Home &amp; Garden">
+<meta property="og:title" content="Moores Home &amp; Garden — Hand-poured Candles &amp; Home Fragrance">
+<meta property="og:description" content="A Sussex fragrance workshop hand-pouring candles, diffusers, Eau de Parfum and home fragrance for retail, hospitality and own-label partners.">
+<meta property="og:url" content="https://mooreshomeandgarden.com/">
+<meta property="og:image" content="https://mooreshomeandgarden.com/photos/moores-hero-collection.jpg">
+<meta property="og:image:alt" content="Moores hand-poured candles and home fragrance">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeGoodsStore",
+  "name": "Moores Home & Garden",
+  "image": "https://mooreshomeandgarden.com/photos/moores-hero-collection.jpg",
+  "url": "https://mooreshomeandgarden.com/",
+  "telephone": "+44 1342 310810",
+  "email": "contact@mooreshomeandgarden.com",
+  "priceRange": "££",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Meridian Court, Legsheath Lane",
+    "addressLocality": "East Grinstead",
+    "addressRegion": "West Sussex",
+    "postalCode": "RH19 4JW",
+    "addressCountry": "GB"
+  },
+  "areaServed": "GB",
+  "description": "Hand-poured candles, diffusers, Eau de Parfum and home fragrance, made in Sussex for retail, hospitality and own-label partners."
+}
+</script>
+<link rel="stylesheet" href="brand.css">
+<style>
+  /* ============ HERO ============ */
+  .hero { display: grid; grid-template-columns: 1.02fr 1fr; min-height: calc(100svh - 84px); align-items: stretch; }
+  .hero-text { padding: clamp(40px,7vh,96px) clamp(28px,5vw,90px) clamp(40px,7vh,96px) var(--gut); display: flex; flex-direction: column; justify-content: center; }
+  .hero-text h1 { font-size: clamp(44px,6vw,86px); margin: 24px 0 0; }
+  .hero-text h1 em { color: var(--sienna); }
+  .hero-lead { margin-top: 28px; max-width: 44ch; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 40px; align-items: center; }
+  .hero-media { position: relative; overflow: hidden; }
+  .hero-media img { width: 100%; height: 100%; object-fit: cover; display: block; filter: sepia(.12) saturate(.9) brightness(.95) contrast(1.05); }
+  .hero-media::after { content:''; position:absolute; inset:0; background:linear-gradient(160deg, color-mix(in oklab,var(--sienna) 12%,transparent), color-mix(in oklab,var(--paper-deep) 8%,transparent)); mix-blend-mode:multiply; pointer-events:none; }
+  .hero-call { margin-top: 24px; font-size: 15px; color: var(--ink-soft); }
+  .hero-call a { display: inline-flex; align-items: center; gap: 8px; font-family: var(--sans); font-weight: 500; color: var(--ink); border-bottom: 1px solid var(--sienna); padding-bottom: 1px; }
+  .hero-call a:hover { color: var(--sienna); }
+  .hero-call svg { color: var(--sienna); width: 14px; height: 14px; }
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-media { aspect-ratio: 4/3; min-height: auto; order: -1; }
+    .hero-text { padding-block: 40px 56px; }
+  }
+  @media (max-width: 820px) {
+    .story-media img { aspect-ratio: 4/3 !important; }
+    .own-media img { aspect-ratio: 4/3 !important; }
+  }
+
+  section { position: relative; }
+  .pad { padding-block: clamp(72px,12vh,150px); }
+  .alt { background: var(--paper-deep); }
+
+  /* ============ STORY ============ */
+  .story { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(36px,6vw,96px); align-items: center; }
+  .story h2 { font-size: clamp(34px,4.4vw,60px); margin: 18px 0 26px; }
+  .signature { font-family: var(--display); font-style: italic; font-size: 24px; color: var(--ink-soft); margin-top: 28px; }
+  @media (max-width: 820px) { .story { grid-template-columns: 1fr; } .story .story-media { order: -1; } }
+
+  /* ============ RANGE ============ */
+  .range-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; flex-wrap: wrap; margin-bottom: clamp(34px,5vh,58px); }
+  .range-head h2 { font-size: clamp(34px,4.4vw,58px); max-width: 14ch; }
+  .range-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: clamp(16px,1.6vw,26px); }
+  .cat { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 36px 20px 32px; background: var(--shell); border: 1px solid var(--line); border-radius: 5px; transition: border-color .4s var(--ease), transform .4s var(--ease); }
+  .cat:hover { border-color: var(--sienna); transform: translateY(-3px); }
+  .cat .cat-icon { width: 64px; height: 64px; color: var(--sienna); margin-bottom: 22px; }
+  .cat .name { font-family: var(--display); font-size: 25px; display: block; }
+  .cat .desc { font-size: 14.5px; color: var(--ink-soft); margin-top: 8px; max-width: 22ch; }
+  .range-foot { margin-top: clamp(34px,5vh,52px); display: flex; justify-content: center; }
+  @media (max-width: 1080px) { .range-grid { grid-template-columns: repeat(3,1fr); } }
+  @media (max-width: 820px) { .range-grid { grid-template-columns: repeat(2,1fr); gap: 16px; } }
+
+  /* ============ CRAFT STRIP ============ */
+  .craft { background: var(--ink); color: var(--paper); }
+  .craft .eyebrow { color: color-mix(in oklab,var(--sienna) 75%,white); }
+  .craft-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(28px,4vw,64px); margin-top: 46px; }
+  .craft-item .num { font-family: var(--display); font-size: clamp(46px,5vw,72px); color: color-mix(in oklab,var(--brass) 88%,white); line-height: 1; }
+  .craft-item h3 { font-size: 24px; margin: 16px 0 10px; color: var(--paper); }
+  .craft-item p { color: color-mix(in oklab,var(--paper) 70%,transparent); font-size: 15px; max-width: 32ch; }
+  .craft .lead { font-family: var(--display); font-size: clamp(26px,3.4vw,44px); font-weight: 400; line-height: 1.25; max-width: 22ch; margin-top: 22px; }
+  @media (max-width: 760px) { .craft-grid { grid-template-columns: 1fr; gap: 36px; } }
+
+  /* ============ PROCESS ============ */
+  .process { background: var(--paper-deep); }
+  .process .inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px,6vw,80px); align-items: center; }
+  .process h2 { font-size: clamp(34px,4.4vw,56px); margin: 18px 0 22px; }
+  .process .vid { aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; background: var(--ink); }
+  .process .vid iframe { width: 100%; height: 100%; border: 0; }
+  @media (max-width: 820px) { .process .inner { grid-template-columns: 1fr; } }
+
+  /* ============ OWN BRANDING ============ */
+  .own { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(36px,6vw,90px); align-items: center; }
+  .own h2 { font-size: clamp(34px,4.2vw,56px); margin: 18px 0 24px; }
+  .own ul { list-style: none; padding: 0; margin: 0 0 32px; }
+  .own li { display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-top: 1px solid var(--line); font-size: 16px; }
+  .own li:last-child { border-bottom: 1px solid var(--line); }
+  .own li .b { color: var(--sienna); font-family: var(--display); font-size: 19px; line-height: 1.3; }
+  @media (max-width: 820px) { .own { grid-template-columns: 1fr; } .own .own-media { order: -1; } }
+
+  /* ============ CONSULT CTA ============ */
+  .consult-cta { background: var(--paper-deep); }
+  .consult-cta .inner { max-width: 760px; margin: 0 auto; text-align: center; }
+  .consult-cta h2 { font-size: clamp(38px,5vw,68px); margin: 18px 0 22px; }
+  .consult-cta h2 em { color: var(--sienna); }
+</style>
+</head>
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" fill="#2A211A"/>
+  <g transform="translate(35,22) scale(1.6)" fill="none" stroke="#A8843E" stroke-width="1.4" stroke-linejoin="round">
+    <path d="M15 2 C9 11 6 15 6 22 a9 9 0 0 0 18 0 c0-7-3-11-9-20Z"/>
+    <path d="M15 14 C12 18 11 20 11 23 a4 4 0 0 0 8 0 c0-3-1-5-4-9Z" stroke-width="1.2"/>
+    <line x1="15" y1="30" x2="15" y2="37"/>
+  </g>
+</svg>
+</template>
+<body data-page="home">
+<div id="site-header"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <span class="eyebrow" data-reveal>Hand-poured in Sussex · since 2010</span>
+    <h1 data-reveal>Signature scent for <em>exceptional spaces.</em></h1>
+    <p class="serif-lead hero-lead" data-reveal>A Sussex workshop hand-pouring candles, diffusers, and fragrance for the hotels, boutiques, and brands who put their name to our work.</p>
+    <div class="hero-actions" data-reveal>
+      <a href="consultation.html" class="btn">Request a trade consultation <span class="arrow">→</span></a>
+      <a href="the-range.html" class="link-underline">Explore the library</a>
+    </div>
+    <p class="hero-call" data-reveal>Or call the workshop directly —&nbsp; <a href="tel:+441342310810"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8 h2.4 l1.2 3 -1.5 1.2 a8.5 8.5 0 0 0 4.9 4.9 l1.2-1.5 3 1.2 v2.4 a1.2 1.2 0 0 1-1.3 1.2 A12.2 12.2 0 0 1 1.8 3.1 1.2 1.2 0 0 1 3 1.8 Z"/></svg>01342 310810</a></p>
+  </div>
+  <div class="hero-media">
+    <img src="photos/moores-hero-collection.jpg" alt="Moores hand-poured candle collection with branded ribbon">
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="pad alt" id="story">
+  <div class="wrap story">
+    <div class="story-media brand-img" data-reveal>
+      <img src="photos/moores-workshop-craft.jpg" alt="Moores candles finished by hand in the Sussex workshop" style="width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:3px;">
+    </div>
+    <div data-reveal>
+      <span class="eyebrow">Who we are</span>
+      <h2>30 years of design.<br>15 years of scent.</h2>
+      <p>Moores Home &amp; Garden is a dedicated fragrance workshop in the Sussex countryside founded by Terence and Suzy Moore. Drawing on 30 years of high-end interior design experience, we hand-pour candles, diffusers, and home fragrance for luxury retailers, hospitality brands, and corporate clients.</p>
+      <p>We are not a factory, and we are not a catalogue. We are a team of makers who care how a room feels when your guests walk into it — and who can craft that feeling for orders of any size.</p>
+      <p class="signature">— Terence, Suzy, and the Moores team</p>
+      <a href="our-story.html" class="link-underline" style="margin-top:6px; display:inline-block;">Read our story</a>
+    </div>
+  </div>
+</section>
+
+<!-- RANGE -->
+<section class="pad" id="range">
+  <div class="wrap">
+    <div class="range-head" data-reveal>
+      <h2>Over a hundred fragrances.</h2>
+      <p class="serif-lead" style="max-width:34ch; margin:0;">A handful of beautiful formats, crafted for retail and hospitality partners.</p>
+    </div>
+    <div class="range-grid">
+      <a class="cat" href="the-range.html" data-reveal>
+        <svg class="cat-icon" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M30 10 C27 15 25.5 17 25.5 20 a4.5 4.5 0 0 0 9 0 c0-3-1.5-5-4.5-10Z"/>
+          <path d="M30 16 C29 18 28.5 19 28.5 20.5 a1.5 1.5 0 0 0 3 0 c0-1.5-.5-2.5-1.5-4.5Z" stroke-width="1"/>
+          <line x1="30" y1="24" x2="30" y2="27"/>
+          <path d="M21 27 h18 v20 c0 2-1 3-3 3 h-12 c-2 0-3-1-3-3 Z"/>
+          <path d="M21 32 h18" opacity=".4"/>
+        </svg>
+        <span class="name">Candles</span>
+        <span class="desc">Hand-poured perfumed candles in over sixty scents.</span>
+      </a>
+      <a class="cat" href="the-range.html" data-reveal style="transition-delay:.08s">
+        <svg class="cat-icon" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="26" y="7" width="8" height="5" rx="1"/>
+          <rect x="28" y="12" width="4" height="3"/>
+          <path d="M22 15 h16 v29 c0 2-1.5 3.5-3.5 3.5 h-9 C23.5 47.5 22 46 22 44 Z"/>
+          <path d="M22 22 h16" opacity=".4"/>
+        </svg>
+        <span class="name">Eau de Parfum</span>
+        <span class="desc">Wearable scent in glass flacons &amp; travel sprays.</span>
+      </a>
+      <a class="cat" href="the-range.html" data-reveal style="transition-delay:.16s">
+        <svg class="cat-icon" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="25" y1="8" x2="27" y2="24"/>
+          <line x1="30" y1="6" x2="30" y2="24"/>
+          <line x1="35" y1="8" x2="33" y2="24"/>
+          <rect x="24" y="24" width="12" height="4" rx="1"/>
+          <path d="M23 28 L21 48 c0 1.5 1 2.5 2.5 2.5 h13 c1.5 0 2.5-1 2.5-2.5 L37 28"/>
+          <path d="M22 38 h16" opacity=".4"/>
+        </svg>
+        <span class="name">Diffusers</span>
+        <span class="desc">Lasting, layered reed perfumes in European glass.</span>
+      </a>
+      <a class="cat" href="the-range.html" data-reveal style="transition-delay:.24s">
+        <svg class="cat-icon" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M30 6 v4" stroke-width="1" opacity=".5"/>
+          <path d="M26 8 l1 3" stroke-width="1" opacity=".4"/>
+          <path d="M34 8 l-1 3" stroke-width="1" opacity=".4"/>
+          <rect x="27" y="12" width="6" height="4" rx="1"/>
+          <path d="M25 16 h10 v3 h-10 Z"/>
+          <path d="M24 19 h12 v28 c0 1.5-1 2.5-2.5 2.5 h-7 c-1.5 0-2.5-1-2.5-2.5 Z"/>
+          <rect x="26" y="30" width="8" height="10" rx=".5" opacity=".3"/>
+        </svg>
+        <span class="name">Room Sprays</span>
+        <span class="desc">Dress a hotel suite or retail space in scent.</span>
+      </a>
+      <a class="cat" href="the-range.html" data-reveal style="transition-delay:.32s">
+        <svg class="cat-icon" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="30" y1="6" x2="30" y2="14"/>
+          <path d="M26 6 h8"/>
+          <path d="M24 6 l2-3 h8 l2 3" stroke-width="1"/>
+          <rect x="28" y="14" width="4" height="5" rx=".5"/>
+          <path d="M25 19 h10"/>
+          <path d="M23 19 v28 c0 1.5 1 2.5 2.5 2.5 h9 c1.5 0 2.5-1 2.5-2.5 V19"/>
+          <path d="M30 30 C28.5 33 28 34 28 35.5 a2 2 0 0 0 4 0 c0-1.5-.5-2.5-2-5.5Z" opacity=".35"/>
+        </svg>
+        <span class="name">Hand &amp; Body</span>
+        <span class="desc">Washes &amp; lotions to match your signature.</span>
+      </a>
+    </div>
+    <div class="range-foot" data-reveal>
+      <a href="fragrances.html" class="btn ghost">Explore the fragrance library <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- CRAFT STRIP -->
+<section class="pad craft">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>The way we work</span>
+    <p class="lead" data-reveal>Made properly in small batches, for orders of any size.</p>
+    <div class="craft-grid">
+      <div class="craft-item" data-reveal>
+        <div class="num">01</div>
+        <h3>Poured by hand</h3>
+        <p>Every wholesale and private-label order is made to order in our own workshop.</p>
+      </div>
+      <div class="craft-item" data-reveal style="transition-delay:.1s">
+        <div class="num">100+</div>
+        <h3>Fragrances</h3>
+        <p>From the Connoisseur Tea Collection to seasonal classics, all blended in-house.</p>
+      </div>
+      <div class="craft-item" data-reveal style="transition-delay:.2s">
+        <div class="num">2010</div>
+        <h3>Est. in Sussex</h3>
+        <p>From a kitchen table to a trusted production partner in the countryside.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS VIDEO -->
+<section class="pad process" id="process">
+  <div class="wrap inner">
+    <div data-reveal>
+      <span class="eyebrow">See how it's made</span>
+      <h2>From wax to<br>finished product.</h2>
+      <p>Every candle is poured by hand in our Sussex workshop. Watch the process — from blending the fragrance to trimming the wick.</p>
+    </div>
+    <div class="vid" data-reveal>
+      <iframe src="https://player.vimeo.com/video/147873731?background=0&title=0&byline=0&portrait=0" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- OWN BRANDING -->
+<section class="pad" id="own">
+  <div class="wrap own">
+    <div data-reveal>
+      <span class="eyebrow">Own branding &amp; bespoke</span>
+      <h2>Your label,<br>our craft.</h2>
+      <p>We make fragrance for hotels, boutiques, interior designers, and brands who want a signature scent of their own. We develop, pour, and finish everything under your name. Free own-branding included on many wholesale orders.</p>
+      <ul>
+        <li><span class="b">·</span> Bespoke fragrance development</li>
+        <li><span class="b">·</span> Private-label candles, diffusers &amp; sprays</li>
+        <li><span class="b">·</span> Dedicated trade &amp; wholesale accounts</li>
+        <li><span class="b">·</span> Considered packaging, trims &amp; ribbons</li>
+      </ul>
+      <a href="own-branding.html" class="btn">Explore own branding <span class="arrow">→</span></a>
+    </div>
+    <div class="own-media brand-img" data-reveal>
+      <img src="photos/moores-bespoke-stives.jpg" alt="Bespoke St Ives candle commission with illustrated box" style="width:100%; aspect-ratio:5/4; object-fit:cover; border-radius:3px;">
+    </div>
+  </div>
+</section>
+
+<!-- CONSULT CTA -->
+<section class="pad consult-cta" id="consult">
+  <div class="wrap inner" data-reveal>
+    <span class="eyebrow">Let's talk</span>
+    <h2>Build a collection <em>together.</em></h2>
+    <p class="serif-lead">Every commercial project starts with a conversation about what you are looking for. Whether you need a white-label retail line or a signature scent for a property, we will be in touch personally.</p>
+    <a href="consultation.html" class="btn">Request a trade consultation <span class="arrow">→</span></a>
+    <div class="call-line">Prefer to talk it through? <a href="tel:+441342310810"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8 h2.4 l1.2 3 -1.5 1.2 a8.5 8.5 0 0 0 4.9 4.9 l1.2-1.5 3 1.2 v2.4 a1.2 1.2 0 0 1-1.3 1.2 A12.2 12.2 0 0 1 1.8 3.1 1.2 1.2 0 0 1 3 1.8 Z"/></svg>Call 01342 310810</a></div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+<script src="site.js"></script>
+</body>
+</html>

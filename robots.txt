@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# The private email builder — keep it out of search results
+Disallow: /email-tool/
+
+Sitemap: https://mooreshomeandgarden.com/sitemap.xml

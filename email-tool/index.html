@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Moores — Email Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#E7DDCA; --cream:#F6F0E5; --paper:#FBF7EF; --ink:#2A211A;
+    --terra:#B05E36; --terra-dark:#90492A; --muted:#6F6152; --line:#D9CCB7;
+    --line-soft:#E4D9C6; --good:#5B7B53; --warn:#B8852E; --bad:#B23B2E;
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Jost',Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:var(--sans);color:var(--ink);background:var(--sand);font-weight:300;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0;}
+  button{font-family:var(--sans);cursor:pointer;}
+  a{color:var(--terra);}
+
+  /* ---------- password gate ---------- */
+  #gate{position:fixed;inset:0;z-index:1000;background:var(--ink);display:flex;align-items:center;justify-content:center;padding:24px;}
+  #gate .box{background:var(--paper);max-width:380px;width:100%;padding:44px 38px;text-align:center;border-radius:3px;}
+  #gate .flame{width:34px;height:auto;margin:0 auto 18px;display:block;}
+  #gate h1{font-size:30px;letter-spacing:-.3px;line-height:1.12;}
+  #gate p{color:var(--muted);font-size:14px;line-height:1.6;margin:8px 0 26px;}
+  #gate input{width:100%;padding:13px 14px;border:1px solid var(--line);background:#fff;font-family:var(--sans);font-size:15px;border-radius:2px;text-align:center;letter-spacing:1px;}
+  #gate input:focus{outline:none;border-color:var(--terra);}
+  #gate button{margin-top:14px;width:100%;background:var(--terra);color:var(--paper);border:0;padding:14px;font-size:12px;letter-spacing:2.4px;text-transform:uppercase;border-radius:2px;}
+  #gate button:hover{background:var(--terra-dark);}
+  #gate .err{color:var(--bad);font-size:13px;height:18px;margin-top:12px;}
+
+  /* ---------- top bar ---------- */
+  header.bar{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:space-between;padding:14px 26px;}
+  header.bar .brand{display:flex;align-items:center;gap:13px;}
+  header.bar .brand img{height:30px;width:auto;display:block;}
+  header.bar .brand .t{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1;}
+  header.bar .brand .t small{display:block;font-family:var(--sans);font-weight:300;font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:#B6A993;margin-top:4px;}
+  header.bar .actions{display:flex;gap:10px;align-items:center;}
+  .btn{border:0;border-radius:2px;padding:12px 20px;font-size:11.5px;letter-spacing:2px;text-transform:uppercase;font-weight:500;}
+  .btn-primary{background:var(--terra);color:var(--paper);}
+  .btn-primary:hover{background:var(--terra-dark);}
+  .btn-ghost{background:transparent;color:var(--paper);border:1px solid #4a3d31;}
+  .btn-ghost:hover{border-color:#7a6957;}
+  .btn-ghost.ok{border-color:#5B7B53;color:#cfe6c4;}
+  .btn-ghost.bad{border-color:#B23B2E;color:#f0bdb6;}
+  .btn-quiet{background:var(--cream);color:var(--ink);border:1px solid var(--line);}
+  .btn-quiet:hover{background:#efe7d7;}
+  .btn:disabled{opacity:.45;cursor:not-allowed;}
+
+  /* ---------- layout ---------- */
+  .wrap{display:grid;grid-template-columns:minmax(0,1fr) 520px;gap:0;align-items:start;}
+  .form-col{padding:30px 34px 80px;max-width:760px;margin:0 auto;width:100%;}
+  .preview-col{position:sticky;top:58px;height:calc(100vh - 58px);background:var(--sand);border-left:1px solid var(--line);display:flex;flex-direction:column;}
+
+  .intro{background:var(--paper);border:1px solid var(--line-soft);border-radius:3px;padding:18px 22px;margin-bottom:26px;display:flex;gap:14px;align-items:flex-start;}
+  .intro .n{font-family:var(--serif);font-size:30px;color:var(--terra);line-height:1;}
+  .intro h2{font-size:22px;margin-bottom:4px;}
+  .intro p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.65;}
+
+  fieldset{border:0;margin:0 0 14px;padding:0;}
+  .section{background:var(--paper);border:1px solid var(--line-soft);border-radius:3px;margin-bottom:18px;overflow:hidden;}
+  .section > .head{display:flex;align-items:baseline;gap:10px;padding:16px 22px 0;}
+  .section > .head .step{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--terra);}
+  .section > .head h3{font-size:19px;}
+  .section > .body{padding:14px 22px 20px;}
+
+  .field{margin-bottom:16px;}
+  .field:last-child{margin-bottom:0;}
+  label.lab{display:block;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:6px;}
+  label.lab .hint{text-transform:none;letter-spacing:0;font-size:12px;color:#9a8d7b;font-weight:300;font-style:italic;margin-left:8px;}
+  .field input[type=text],.field input[type=url],.field textarea{width:100%;padding:11px 13px;border:1px solid var(--line);background:#fff;font-family:var(--sans);font-size:15px;font-weight:300;color:var(--ink);border-radius:2px;line-height:1.5;}
+  .field textarea{resize:vertical;min-height:64px;}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--terra);box-shadow:0 0 0 3px rgba(176,94,54,.10);}
+  .meter{display:flex;justify-content:space-between;align-items:center;margin-top:5px;min-height:15px;}
+  .meter .msg{font-size:12px;color:var(--muted);}
+  .meter .msg.warn{color:var(--warn);}
+  .meter .msg.bad{color:var(--bad);}
+  .meter .count{font-size:11px;color:#a99b88;font-variant-numeric:tabular-nums;}
+  .meter .count.warn{color:var(--warn);}
+  .meter .count.bad{color:var(--bad);}
+
+  .para{position:relative;margin-bottom:10px;}
+  .para textarea{padding-right:40px;}
+  .para .del{position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:2px;border:1px solid var(--line);background:#fff;color:var(--muted);font-size:15px;line-height:1;display:flex;align-items:center;justify-content:center;}
+  .para .del:hover{border-color:var(--bad);color:var(--bad);}
+  .addpara{background:transparent;border:1px dashed var(--line);color:var(--muted);width:100%;padding:10px;border-radius:2px;font-size:12px;letter-spacing:1px;text-transform:uppercase;}
+  .addpara:hover{border-color:var(--terra);color:var(--terra);}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:560px){.two{grid-template-columns:1fr;}}
+
+  /* ---------- image card ---------- */
+  .imgcard{border:1px solid var(--line-soft);border-radius:3px;padding:16px;background:#fff;}
+  .imgcard + .imgcard{margin-top:16px;}
+  .imgcard .cap{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:4px;}
+  .imgcard .sub{font-size:12.5px;color:#9a8d7b;font-style:italic;margin-bottom:12px;}
+  .dropzone{border:1.5px dashed var(--line);border-radius:3px;background:var(--paper);padding:26px 18px;text-align:center;color:var(--muted);cursor:pointer;transition:.15s;}
+  .dropzone:hover,.dropzone.drag{border-color:var(--terra);background:#fbf3ea;color:var(--terra);}
+  .dropzone .big{font-family:var(--serif);font-size:19px;color:var(--ink);margin-bottom:3px;}
+  .dropzone .sm{font-size:12.5px;}
+  .editor{display:none;}
+  .editor.on{display:block;}
+  .stage-wrap{position:relative;margin:0 auto;border-radius:2px;overflow:hidden;background:#e9e0d0;touch-action:none;cursor:grab;}
+  .stage-wrap.grabbing{cursor:grabbing;}
+  .stage-wrap canvas{display:block;width:100%;height:auto;}
+  .stage-wrap .ohint{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(42,33,26,.6));color:#fff;font-size:11px;letter-spacing:.5px;padding:14px 10px 7px;text-align:center;pointer-events:none;}
+  .ctrls{display:flex;align-items:center;gap:12px;margin-top:12px;}
+  .ctrls label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+  .ctrls input[type=range]{flex:1;accent-color:var(--terra);}
+  .resnote{font-size:12.5px;margin-top:10px;display:flex;gap:7px;align-items:flex-start;line-height:1.5;}
+  .resnote .dot{width:9px;height:9px;border-radius:50%;margin-top:4px;flex:none;}
+  .resnote.good .dot{background:var(--good);} .resnote.good{color:var(--good);}
+  .resnote.warn .dot{background:var(--warn);} .resnote.warn{color:var(--warn);}
+  .resnote.bad .dot{background:var(--bad);} .resnote.bad{color:var(--bad);}
+  .imgactions{display:flex;gap:9px;margin-top:13px;flex-wrap:wrap;}
+  .imgactions .btn{padding:10px 16px;}
+  .savedchip{display:none;align-items:center;gap:9px;margin-top:13px;padding:11px 13px;background:#f0f5ee;border:1px solid #cfe0c8;border-radius:2px;font-size:13px;color:var(--good);}
+  .savedchip.on{display:flex;}
+  .savedchip code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--ink);background:#fff;padding:2px 6px;border-radius:2px;border:1px solid var(--line-soft);}
+  .savedchip .dl{margin-left:auto;}
+  .savedchip.busy{background:#eef2f6;border-color:#cdd9e4;color:#37576f;}
+  .savedchip.err{background:#fbf1ea;border-color:#e7cdbe;color:#8a5a2e;}
+  .savedchip .btn.up{margin-left:auto;padding:8px 14px;}
+  .savedchip .lnk{background:none;border:0;color:inherit;font:inherit;text-decoration:underline;cursor:pointer;padding:0;}
+  .savedchip .lnk:hover{color:var(--terra);}
+
+  /* ---------- preview pane ---------- */
+  .preview-col .pv-head{padding:13px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;background:var(--cream);}
+  .preview-col .pv-head .t{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+  .preview-col .pv-head .sub{font-size:11px;color:#a99b88;}
+  .preview-col .stage{flex:1;overflow:auto;padding:22px;display:flex;justify-content:center;}
+  .preview-col .scaler{transform-origin:top center;}
+  #preview{width:600px;border:0;background:#fff;box-shadow:0 12px 34px rgba(42,33,26,.18);display:block;}
+  .preview-col .pv-foot{border-top:1px solid var(--line);background:var(--cream);padding:14px 18px;display:flex;gap:10px;align-items:center;}
+  .preview-col .pv-foot .left{font-size:12px;color:var(--muted);flex:1;line-height:1.4;}
+  .preview-col .pv-foot .left b{color:var(--ink);font-weight:600;}
+
+  .mobile-tabs{display:none;}
+
+  /* ---------- modal ---------- */
+  .modal{position:fixed;inset:0;z-index:200;background:rgba(42,33,26,.55);display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow:auto;}
+  .modal.on{display:flex;}
+  .modal .panel{background:var(--paper);max-width:680px;width:100%;border-radius:4px;padding:0;overflow:hidden;}
+  .modal .phead{background:var(--ink);color:var(--paper);padding:24px 30px;display:flex;justify-content:space-between;align-items:center;}
+  .modal .phead h2{font-size:26px;}
+  .modal .phead .x{background:transparent;border:0;color:#B6A993;font-size:26px;line-height:1;}
+  .modal .phead .x:hover{color:#fff;}
+  .modal .pbody{padding:8px 30px 30px;}
+  ol.steps{counter-reset:s;list-style:none;margin:0;padding:0;}
+  ol.steps > li{position:relative;padding:20px 0 20px 52px;border-bottom:1px solid var(--line-soft);}
+  ol.steps > li:last-child{border-bottom:0;}
+  ol.steps > li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:19px;width:34px;height:34px;border-radius:50%;background:var(--terra);color:var(--paper);font-family:var(--serif);font-size:18px;display:flex;align-items:center;justify-content:center;}
+  ol.steps h4{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 5px;}
+  ol.steps p{margin:0;color:var(--muted);font-size:14px;line-height:1.7;}
+  ol.steps code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;background:#efe7d7;padding:2px 6px;border-radius:2px;color:var(--ink);}
+  .copybox{display:flex;gap:10px;margin:6px 0 2px;}
+  .copybox .btn{flex:none;}
+  .subjline{background:#efe7d7;border:1px solid var(--line);border-radius:2px;padding:10px 12px;font-size:14px;margin-top:8px;display:flex;gap:10px;align-items:center;justify-content:space-between;}
+  .subjline span{color:var(--ink);}
+  .subjline button{background:transparent;border:1px solid var(--line);border-radius:2px;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:6px 11px;}
+  .subjline button:hover{border-color:var(--terra);color:var(--terra);}
+  .needfix{background:#fbecea;border:1px solid #e7c4be;color:var(--bad);border-radius:2px;padding:12px 14px;font-size:13.5px;line-height:1.6;margin-bottom:16px;display:none;}
+  .needfix.on{display:block;}
+  .needfix ul{margin:6px 0 0;padding-left:18px;}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--paper);padding:13px 22px;border-radius:3px;font-size:13.5px;letter-spacing:.4px;opacity:0;pointer-events:none;transition:.25s;z-index:500;}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media(max-width:1040px){
+    .wrap{grid-template-columns:1fr;}
+    .preview-col{position:fixed;inset:58px 0 0;height:auto;z-index:40;border-left:0;display:none;}
+    body.show-preview .preview-col{display:flex;}
+    .mobile-tabs{display:flex;position:sticky;top:58px;z-index:45;background:var(--cream);border-bottom:1px solid var(--line);}
+    .mobile-tabs button{flex:1;background:transparent;border:0;padding:14px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-bottom:2px solid transparent;}
+    .mobile-tabs button.active{color:var(--terra);border-bottom-color:var(--terra);}
+  }
+</style>
+</head>
+<body>
+
+  <!-- ================= PASSWORD GATE ================= -->
+  <div id="gate">
+    <div class="box">
+      <img class="flame" src="https://mooreshomeandgarden.com/email/flame-divider.png" alt="" onerror="this.style.display='none'">
+      <h1>Moores Email Builder</h1>
+      <p>This tool is private. Please enter the password to continue.</p>
+      <form id="gateForm" autocomplete="off">
+        <input id="gatePw" type="password" placeholder="Password" autocomplete="off" aria-label="Password">
+        <div class="err" id="gateErr"></div>
+        <button type="submit">Unlock</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= APP ================= -->
+  <div id="app" hidden>
+    <header class="bar">
+      <div class="brand">
+        <img src="https://mooreshomeandgarden.com/email/logo-footer.png" alt="Moores Home & Garden" onerror="this.style.display='none'">
+        <div class="t">Email Builder<small>Announcements made easy</small></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-ghost" id="resetBtn">Start fresh</button>
+        <button class="btn btn-primary" id="sendBtn">Get the code &amp; send&nbsp;&nbsp;&rarr;</button>
+      </div>
+    </header>
+
+    <div class="mobile-tabs">
+      <button data-tab="write" class="active">Write</button>
+      <button data-tab="preview">Preview</button>
+    </div>
+
+    <div class="wrap">
+      <!-- ---------- FORM ---------- -->
+      <div class="form-col">
+        <div class="intro">
+          <div class="n">✶</div>
+          <div>
+            <h2>Write your announcement</h2>
+            <p>Fill in the boxes below — the preview updates as you type. The logo, colours, fonts and footer are locked to the brand, so you only ever change the words and the pictures. When you're happy, hit <b>“Get the code &amp; send”</b>.</p>
+          </div>
+        </div>
+
+        <!-- Subject -->
+        <div class="section"><div class="head"><span class="step">i.</span><h3>The inbox line</h3></div><div class="body">
+          <div class="field">
+            <label class="lab" for="f_subject">Subject line <span class="hint">what people see in their inbox</span></label>
+            <input type="text" id="f_subject" data-soft="55" data-req="1">
+            <div class="meter"><span class="msg" data-for="f_subject"></span><span class="count" data-count="f_subject"></span></div>
+          </div>
+          <div class="field">
+            <label class="lab" for="f_preheader">Preview text <span class="hint">the grey line shown after the subject</span></label>
+            <input type="text" id="f_preheader" data-soft="100" data-req="1">
+            <div class="meter"><span class="msg" data-for="f_preheader"></span><span class="count" data-count="f_preheader"></span></div>
+          </div>
+        </div></div>
+
+        <!-- Top of email -->
+        <div class="section"><div class="head"><span class="step">ii.</span><h3>Top of the email</h3></div><div class="body">
+          <div class="field">
+            <label class="lab" for="f_eyebrow">Little label <span class="hint">small caps above the headline</span></label>
+            <input type="text" id="f_eyebrow" data-soft="26">
+            <div class="meter"><span class="msg" data-for="f_eyebrow"></span><span class="count" data-count="f_eyebrow"></span></div>
+          </div>
+          <div class="field">
+            <label class="lab" for="f_headline">Headline <span class="hint">press Enter for a second line</span></label>
+            <textarea id="f_headline" rows="2" data-soft="42" data-req="1"></textarea>
+            <div class="meter"><span class="msg" data-for="f_headline"></span><span class="count" data-count="f_headline"></span></div>
+          </div>
+          <div class="field">
+            <label class="lab" for="f_lead">Opening line <span class="hint">the larger italic sentence</span></label>
+            <textarea id="f_lead" rows="2" data-soft="115"></textarea>
+            <div class="meter"><span class="msg" data-for="f_lead"></span><span class="count" data-count="f_lead"></span></div>
+          </div>
+        </div></div>
+
+        <!-- Main image -->
+        <div class="section"><div class="head"><span class="step">iii.</span><h3>Main picture</h3></div><div class="body">
+          <div class="imgcard" data-img="hero" data-w="1200" data-h="838">
+            <div class="cap">Hero photo</div>
+            <div class="sub">Wide landscape photo at the top. Drag to reposition, slide to zoom.</div>
+            <div class="dropzone"><div class="big">Drop a photo here</div><div class="sm">or click to choose — JPG or PNG</div><input type="file" accept="image/*" hidden></div>
+            <div class="editor">
+              <div class="stage-wrap"><canvas></canvas><div class="ohint">Drag the photo to reposition</div></div>
+              <div class="ctrls"><label>Zoom</label><input type="range" class="zoom" min="1" max="2.6" step="0.01" value="1"></div>
+              <div class="resnote"><span class="dot"></span><span class="restext"></span></div>
+              <div class="imgactions">
+                <button class="btn btn-primary use">Use this photo</button>
+                <button class="btn btn-quiet change">Choose another</button>
+              </div>
+            </div>
+            <div class="savedchip"><span>✓ Ready —</span><code class="fn"></code><button class="btn btn-quiet dl">Download photo</button></div>
+          </div>
+        </div></div>
+
+        <!-- Body -->
+        <div class="section"><div class="head"><span class="step">iv.</span><h3>Your message</h3></div><div class="body">
+          <div class="field">
+            <label class="lab">Paragraphs <span class="hint">“Hello [name]," is added automatically</span></label>
+            <div id="paras"></div>
+            <button class="addpara" id="addPara">+ Add a paragraph</button>
+          </div>
+        </div></div>
+
+        <!-- Button -->
+        <div class="section"><div class="head"><span class="step">v.</span><h3>The button</h3></div><div class="body">
+          <div class="two">
+            <div class="field">
+              <label class="lab" for="f_ctaLabel">Button text</label>
+              <input type="text" id="f_ctaLabel" data-soft="24" data-req="1">
+              <div class="meter"><span class="msg" data-for="f_ctaLabel"></span><span class="count" data-count="f_ctaLabel"></span></div>
+            </div>
+            <div class="field">
+              <label class="lab" for="f_ctaUrl">Button link</label>
+              <input type="url" id="f_ctaUrl" data-link="1" data-req="1">
+              <div class="meter"><span class="msg" data-for="f_ctaUrl"></span></div>
+            </div>
+          </div>
+        </div></div>
+
+        <!-- Feature -->
+        <div class="section"><div class="head"><span class="step">vi.</span><h3>Lower section</h3></div><div class="body">
+          <div class="imgcard" data-img="feature" data-w="1100" data-h="935">
+            <div class="cap">Lower photo</div>
+            <div class="sub">The squarer photo lower down. Drag to reposition, slide to zoom.</div>
+            <div class="dropzone"><div class="big">Drop a photo here</div><div class="sm">or click to choose — JPG or PNG</div><input type="file" accept="image/*" hidden></div>
+            <div class="editor">
+              <div class="stage-wrap"><canvas></canvas><div class="ohint">Drag the photo to reposition</div></div>
+              <div class="ctrls"><label>Zoom</label><input type="range" class="zoom" min="1" max="2.6" step="0.01" value="1"></div>
+              <div class="resnote"><span class="dot"></span><span class="restext"></span></div>
+              <div class="imgactions">
+                <button class="btn btn-primary use">Use this photo</button>
+                <button class="btn btn-quiet change">Choose another</button>
+              </div>
+            </div>
+            <div class="savedchip"><span>✓ Ready —</span><code class="fn"></code><button class="btn btn-quiet dl">Download photo</button></div>
+          </div>
+          <div class="field" style="margin-top:18px;">
+            <label class="lab" for="f_featureHeading">Heading</label>
+            <input type="text" id="f_featureHeading" data-soft="38" data-req="1">
+            <div class="meter"><span class="msg" data-for="f_featureHeading"></span><span class="count" data-count="f_featureHeading"></span></div>
+          </div>
+          <div class="field">
+            <label class="lab" for="f_featureBody">Text</label>
+            <textarea id="f_featureBody" rows="3" data-soft="260"></textarea>
+            <div class="meter"><span class="msg" data-for="f_featureBody"></span><span class="count" data-count="f_featureBody"></span></div>
+          </div>
+          <div class="two">
+            <div class="field">
+              <label class="lab" for="f_secondaryLabel">Link text</label>
+              <input type="text" id="f_secondaryLabel" data-soft="30">
+              <div class="meter"><span class="msg" data-for="f_secondaryLabel"></span><span class="count" data-count="f_secondaryLabel"></span></div>
+            </div>
+            <div class="field">
+              <label class="lab" for="f_secondaryUrl">Link address <span class="hint">a web address or email</span></label>
+              <input type="text" id="f_secondaryUrl" data-link="1">
+              <div class="meter"><span class="msg" data-for="f_secondaryUrl"></span></div>
+            </div>
+          </div>
+        </div></div>
+
+        <!-- Sign-off -->
+        <div class="section"><div class="head"><span class="step">vii.</span><h3>Sign-off</h3></div><div class="body">
+          <div class="field">
+            <label class="lab" for="f_signoff">Closing line</label>
+            <input type="text" id="f_signoff" data-soft="48">
+            <div class="meter"><span class="msg" data-for="f_signoff"></span><span class="count" data-count="f_signoff"></span></div>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- ---------- PREVIEW ---------- -->
+      <div class="preview-col">
+        <div class="pv-head"><span class="t">Live preview</span><span class="sub">updates as you type</span></div>
+        <div class="stage"><div class="scaler"><iframe id="preview" title="Email preview" scrolling="no"></iframe></div></div>
+        <div class="pv-foot">
+          <div class="left">Looks good? <b>Get the code &amp; send</b> walks you through it.</div>
+          <button class="btn btn-primary" id="sendBtn2">Get the code&nbsp;&nbsp;&rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SEND MODAL ================= -->
+  <div class="modal" id="sendModal">
+    <div class="panel">
+      <div class="phead"><h2>Send your email</h2><button class="x" id="modalX">&times;</button></div>
+      <div class="pbody">
+        <div class="needfix" id="needfix"></div>
+        <ol class="steps">
+          <li id="step-photos">
+            <h4>Add any new photos to the website</h4>
+            <p id="photoMsg">You didn't change the photos, so there's nothing to do — skip to the next step.</p>
+            <div id="photoList"></div>
+          </li>
+          <li>
+            <h4>Copy the email code</h4>
+            <p>Click the button — the whole email is copied to your clipboard, ready to paste.</p>
+            <div class="copybox"><button class="btn btn-primary" id="copyCode">Copy email code</button><button class="btn btn-quiet" id="dlCode">Download as file</button></div>
+          </li>
+          <li>
+            <h4>Start a campaign in EmailOctopus</h4>
+            <p>Log in, go to <code>Campaigns</code> → <code>New campaign</code>. When it asks how you'd like to design it, choose the <b>“Paste in code” / Custom&nbsp;HTML</b> option. Paste your copied code into the box.</p>
+          </li>
+          <li>
+            <h4>Set the subject line</h4>
+            <p>In the campaign settings, type this into the Subject box:</p>
+            <div class="subjline"><span id="subjPreview">—</span><button id="copySubj">Copy</button></div>
+          </li>
+          <li>
+            <h4>Send yourself a test, then send</h4>
+            <p>Use EmailOctopus's <b>“Send a test”</b> to check it in your own inbox. If the photos show and it reads well, choose your list and hit send. 🎉</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="template.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

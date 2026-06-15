@@ -1,0 +1,61 @@
+MOORES EMAIL BUILDER — quick guide
+===================================
+
+WHAT IT IS
+  A private web page that lets you write a Moores announcement email by
+  filling in boxes, then gives you the code to paste into EmailOctopus.
+  The brand (logo, colours, fonts, footer) is locked — you only change
+  the words and the pictures, so it can't go off-brand.
+
+  It runs entirely in your web browser. Nothing is sent anywhere until
+  YOU copy the finished code into EmailOctopus.
+
+THE PASSWORD
+  When the page asks, type:   moores2026
+  (You only need to do this once each time you open it.)
+
+HOW TO USE IT — five minutes
+  1. Open the page and enter the password.
+  2. Work down the boxes on the left. The preview on the right updates
+     as you type. Boxes turn amber if the text is getting too long.
+  3. To change a photo: drop a picture onto the photo box, drag it to
+     frame it nicely, slide to zoom. Watch the little dot —
+        green = crisp,  amber = a bit soft,  red = too small, use a bigger photo.
+     Click "Use this photo". You'll get a "Download photo" button — the
+     photo is framed and ready. (See "ABOUT PHOTOS" below.)
+  4. Click "Get the code & send" (top right) and follow the steps:
+       • If you changed a photo, download it and add it to the website
+         (one-minute job — see "ABOUT PHOTOS").
+       • Click "Copy email code".
+       • In EmailOctopus: Campaigns -> New campaign -> choose the
+         "Paste in code" / Custom HTML option -> paste.
+       • Copy the subject line across.
+       • Send yourself a test, then send for real.
+
+ABOUT PHOTOS  (this changed when we moved to GitHub Pages)
+  The email's photos have to live on the website so email apps can show
+  them. The website is now hosted on GitHub Pages, which means new photos
+  are added by dropping them into the site's "email" folder on GitHub:
+
+    1. In the builder, frame your photo and click "Use this photo",
+       then "Download photo". It saves with a dated name, e.g.
+          hero-20260615-143022.jpg
+    2. Go to the website repository on github.com, open the "email"
+       folder, click "Add file" -> "Upload files", and drag the
+       downloaded photo in. Click "Commit changes".
+    3. Wait about a minute for GitHub Pages to publish, then send your
+       email. The photo will now show.
+
+  If you DON'T change the photos, there's nothing to do — the existing
+  hero.jpg / feature.jpg already on the site are used automatically.
+
+  TIP: never reuse an old photo's exact filename — the builder prevents
+  this for you by stamping the date and time into each new photo's name.
+
+GOOD TO KNOW
+  - Your words are saved automatically — if you close the page and come
+    back, they'll still be there. (Photos need re-adding.)
+  - "Start fresh" (top left) puts the example wording back.
+  - You can also just open this page from your own computer (double-click
+    index.html) — it works exactly the same offline. Hosting it only
+    makes it reachable from any device with the password.
